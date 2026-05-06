@@ -1,0 +1,22 @@
+groups:
+- name: system_alerts
+  rules:
+
+  - alert: HighCPUUsage
+    expr: avg(rate(node_cpu_seconds_total{mode!="idle"}[1m])) > 0.8
+    for: 1m
+    labels:
+      severity: warning
+    annotations:
+      description: "CPU usage is above 80%"
+
+  - alert: NodeDown
+    expr: up == 0
+    for: 30s
+    labels:
+      severity: critical
+    annotations:
+      description: "Node is down"
+
+
+
